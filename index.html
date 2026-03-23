@@ -684,7 +684,10 @@ Impact:<br />
         <!-- Footer Contact Section -->
         <footer id="footer" id="contact">
             <section>
-                <form method="post" action="https://formspree.io/f/rameen.ashraf.159@gmail.com">
+<form action="https://formsubmit.co/rameen.ashraf.159@gmail.com" method="POST">
+    <!-- منع الـ Captcha (اختياري) -->
+    <input type="hidden" name="_subject" value="📬 New Message from Portfolio!">
+
                     <div class="fields">
                         <div class="field">
                             <label for="name">Name</label>
@@ -704,7 +707,7 @@ Impact:<br />
                     </ul>
                 </form>
             </section>
-            <section class="split contact">
+            <section class="split contact" id="contact">
                 <section class="alt">
                     <h3>Location</h3>
                     <p>Cairo, Egypt / Remote</p>
@@ -739,8 +742,7 @@ Impact:<br />
     </div>
 
     <!-- Scripts for smooth scroll & minor interactions -->
-    <script>
-        // Smooth scrolling for anchor links
+        <script>
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
