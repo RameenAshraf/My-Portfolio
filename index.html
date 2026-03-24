@@ -22,6 +22,15 @@
             line-height: 1.5;
             scroll-behavior: smooth;
         }
+        html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* مسافة من الأعلى عشان الناف بار ما يغطي المحتوى */
+}
+* {
+    scroll-margin-top: 80px;
+}
+
+
 
         li::marker {
             display: none;
@@ -304,10 +313,9 @@
 
         /* تحسين صور المشاريع - حجم ثابت ومنتظم */
         .posts .image.fit {
-            width: 75%;
+            width: 100%;
             height: 200px;
-            overflow: hidden;
-            border-radius: 18px;
+            border-radius: 50%;
             margin: 1rem 0;
             display: block;
         }
@@ -315,7 +323,8 @@
         .posts .image.fit img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            border-radius: 15px;
+            object-fit:contain;
             object-position: center;
             transition: transform 0.3s ease;
         }
@@ -666,6 +675,54 @@
             border-color: #38bdf8;
             box-shadow: 0 25px 40px -12px rgba(56, 189, 248, 0.4);
         }
+        /* تنسيق بسيط وأنيق لعنوان My Projects */
+.projects-title {
+    text-align: left;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #fff;
+    position: relative;
+    padding-bottom: 0.8rem;
+}
+.skill-title{
+     text-align: left;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #fff;
+    position: relative;
+}
+.section-divider {
+    width: 120px;
+    height: 3px;
+    background: linear-gradient(90deg, #38bdf8, #7dd3fc, #38bdf8);
+    border: none;
+    margin: 0.5rem 0 1.5rem 0;
+    border-radius: 3px;
+    position: relative;
+}
+
+.section-divider-p {
+    width: 120px;
+    height: 3px;
+    background: linear-gradient(90deg, #38bdf8, #7dd3fc, #38bdf8);
+    border: none;
+    margin: 0.5rem 0 1.5rem 0;
+    border-radius: 3px;
+    position: relative;
+}
+
+
+
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
 
         @media (max-width: 768px) {
             #intro h1 {
@@ -778,9 +835,12 @@
                 </div>
             </div>
 
-            
 
             <!-- Skills Section - 3 Blocks -->
+             <h2 class="skill-title">Skills</h2>
+<hr class="section-divider">
+
+
             <div class="skills-grid">
                 <div class="skill-card">
                     <h3><i class="fas fa-code"></i> Technical Skills</h3>
@@ -810,7 +870,10 @@
             </div>
 
             <!-- Projects Section - مع صور ثابتة -->
-            <section class="posts" id="projects">
+<h2 class="projects-title" > Projects</h2>
+<hr class="section-divider-p">
+
+            <section class="posts" id="projects" >
                 <article>
                     <header>
                         <span class="date">Sales Dashboard</span>
@@ -825,10 +888,10 @@
                 <article>
                     <header>
                         <span class="date">Revenue & Gross Margin</span>
-                        <h2><a href="#">Revenue & Profitability Analysis</a></h2>
+                        <h2><a href="#">Revenue & Profitability <br />Analysis</a></h2>
                     </header>
                     <a href="#" class="image fit"><img src="images\Dashboard.jpg" alt="Revenue & Profitability Analysis" /></a>
-                    <p>Details:<br />- Tracked revenue & gross margin trends.<br />- Compared supplier performance.<br />Impact:<br />- Identified most profitable products.<br />- Improved financial visibility.</p>
+                    <p>Details:<br />- Tracked revenue & gross margin trends.<br />- Compared supplier performance.<br /><br />Impact:<br />- Identified most profitable products.<br />- Improved financial visibility.</p>
                     <ul class="actions special">
                         <li><a href="https://drive.google.com/drive/folders/1PPfpd2WZ2Q8N1DFFYBA4lWiq3g0U9vJg?usp=sharing" target="_blank" class="button small">View Project</a></li>
                     </ul>
@@ -839,7 +902,7 @@
                         <h2><a href="#">Budget vs Actual Performance Dashboard</a></h2>
                     </header>
                     <a href="#" class="image fit"><img src="images\Project 3.jpg" alt="Budget vs Actual Dashboard" /></a>
-                    <p>Details:<br />- Compared actual vs planned performance.<br />- Monthly & product-level analysis.<br />Impact:<br />- Highlighted financial gaps.<br />- Supported better budgeting decisions.</p>
+                    <p>Details:<br />- Compared actual vs planned performance.<br />- Monthly & product-level analysis.<br /><br />Impact:<br />- Highlighted financial gaps.<br />- Supported better budgeting decisions.</p>
                     <ul class="actions special">
                         <li><a href="https://drive.google.com/drive/folders/1IG-4oSEssyqMxN_8la-rWBqlSCOvUbfS?usp=sharing" target="_blank" class="button small">View Project</a></li>
                     </ul>
@@ -919,41 +982,66 @@
             </ul>
         </div>
     </div>
-
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === "#" || href === "") return;
-                const target = document.querySelector(href);
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
+<script>
+    // السكرول السلس لجميع الروابط التي تبدأ بـ #
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === "#" || href === "") return;
+            
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                
+                // إزالة active من جميع الروابط
+                document.querySelectorAll('#nav ul.links li').forEach(li => {
+                    li.classList.remove('active');
+                });
+                
+                // إضافة active للرابط الحالي
+                this.parentElement.classList.add('active');
+                
+                // السكرول السلس
+                target.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start'
+                });
+            }
         });
+    });
 
-        const sections = document.querySelectorAll("#main, #aboutme, #projects, #contact");
-        const navLinks = document.querySelectorAll("#nav ul.links li a");
-        window.addEventListener("scroll", () => {
-            let current = "";
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                if (scrollY >= sectionTop) {
-                    current = section.getAttribute("id");
-                }
-            });
-            navLinks.forEach(link => {
-                link.parentElement.classList.remove("active");
-                if (link.getAttribute("href") === `#${current}`) {
-                    link.parentElement.classList.add("active");
-                }
-                if (current === "" && link.getAttribute("href") === "index.html") {
-                    link.parentElement.classList.add("active");
-                }
-            });
+    // تحديث الـ active عند السكرول
+    const sections = document.querySelectorAll("#home, #aboutme, #projects, #contact");
+    const navLinks = document.querySelectorAll("#nav ul.links li a");
+    
+    window.addEventListener("scroll", () => {
+        let current = "";
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            
+            if (scrollY >= sectionTop && scrollY < sectionBottom) {
+                current = section.getAttribute("id");
+            }
         });
-        document.body.classList.remove('is-preload');
-    </script>
+        
+        navLinks.forEach(link => {
+            link.parentElement.classList.remove("active");
+            if (link.getAttribute("href") === `#${current}`) {
+                link.parentElement.classList.add("active");
+            }
+        });
+        
+        // إذا كنا في الأعلى، فعّل الـ Home
+        if (scrollY < 100) {
+            const homeLink = document.querySelector('#nav ul.links li:first-child');
+            if (homeLink) homeLink.classList.add('active');
+        }
+    });
+    
+    // إزالة class preload
+    document.body.classList.remove('is-preload');
+</script>
 </body>
 </html>
