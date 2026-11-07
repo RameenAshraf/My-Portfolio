@@ -1161,30 +1161,35 @@
     <footer id="footer">
 
         <section>
-            <form action="https://formsubmit.co/rameen.ashraf.159@gmail.com" method="POST">
-                <input type="hidden" name="_subject" value="New Message from Portfolio!">
+<form id="contact-form">
+    <input type="hidden" name="access_key" value="d4cd0fe2-e620-4ecc-91c5-9967402690a3">
+    <input type="hidden" name="subject" value="New Message from Rameen's Portfolio">
 
-                <div class="fields">
-                    <div class="field">
-                        <label for="name">Name</label>
-                        <input type="text" name="name" id="name" required>
-                    </div>
+    <div class="fields">
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" required>
+        </div>
 
-                    <div class="field">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" required>
-                    </div>
+        <div class="field">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required>
+        </div>
 
-                    <div class="field">
-                        <label for="message">Message</label>
-                        <textarea name="message" id="message" rows="3" required></textarea>
-                    </div>
-                </div>
+        <div class="field">
+            <label for="message">Message</label>
+            <textarea name="message" id="message" rows="3" required></textarea>
+        </div>
+    </div>
 
-                <ul class="actions">
-                    <li><input class="send" type="submit" value="Send Message"></li>
-                </ul>
-            </form>
+    <ul class="actions">
+        <li>
+            <input class="send" type="submit" value="Send Message">
+        </li>
+    </ul>
+
+    <p id="form-status" role="status" aria-live="polite"></p>
+</form>
         </section>
 
         <section class="split contact" id="contact">
@@ -1293,5 +1298,42 @@
     window.addEventListener('load', updateActiveLink);
 </script>
 
+    <script>
+const contactForm = document.getElementById("contact-form");
+
+contactForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const button = contactForm.querySelector(".send");
+    const status = document.getElementById("form-status");
+
+    button.disabled = true;
+    button.value = "Sending...";
+
+    status.textContent = "";
+
+    try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            body: new FormData(contactForm)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            status.textContent = "Your message has been sent successfully!";
+            contactForm.reset();
+        } else {
+            status.textContent = result.message || "Something went wrong. Please try again.";
+        }
+
+    } catch (error) {
+        status.textContent = "Connection error. Please try again later.";
+    }
+
+    button.disabled = false;
+    button.value = "Send Message";
+});
+</script>
 </body>
 </html>
